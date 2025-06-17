@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Las 7R del Reciclaje</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f2f1;
+            color: #2e7d32;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        img {
+            display: block;
+            margin: 10px auto;
+            max-width: 90%;
+            border-radius: 8px;
+            animation: aparecer 1s ease-in-out;
+            transition: transform 0.5s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        iframe {
+            display: block;
+            margin: 20px auto;
+            max-width: 90%;
+            width: 560px;
+            height: 315px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .boton-link {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-link:hover {
+            background-color: #2e7d32;
+        }
+
+        .pantalla-inicio {
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pantalla-inicio h1 {
+            font-size: 2.5em;
+            animation: aparecer 1s ease-in-out;
+        }
+
+        .pantalla-inicio button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .pantalla-inicio button:hover {
+            background-color: #2e7d32;
+        }
+
+        .contenido {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .section {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            animation: aparecer 1s ease-in-out;
+        }
+
+        .r-item {
+            margin-bottom: 30px;
+        }
+
+        .r-item h3 {
+            color: #1b5e20;
+        }
+
+        h2, h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        .agradecimiento {
+            text-align: center;
+            margin: 50px auto 20px;
+            padding: 20px;
+            background-color: #c8e6c9;
+            border-radius: 10px;
+            font-size: 1.4em;
+            font-weight: bold;
+            width: 80%;
+        }
+
+        table {
+            margin: 30px auto;
+            width: 90%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: aparecer 1s ease-in-out;
+        }
+
+        table, th, td {
+            border: 1px solid #81c784;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #66bb6a;
+            color: white;
+        }
+
+        td {
+            background-color: #e8f5e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="pantalla-inicio">
+        <h1>¡Bienvenidos a la página de las 7R!</h1>
+        <h1>¡Por Yadhi GC!</h1>
+        <button onclick="document.getElementById('principal').scrollIntoView({ behavior: 'smooth' });">Entrar</button>
+        <button class="btn-musica" onclick="toggleMusic()">🎵 Música</button>
+        <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">
+            <a href="7r2.html" class="boton-link">Volver a Página 2</a>
+            <a href="y3.html" class="boton-link">Volver a Página 3</a>
+        </div>
+    </div>
+
+    <audio id="musica-fondo" preload="auto" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <div class="contenido" id="principal">
+        <h1>Las 7R del Reciclaje</h1>
+
+        <div class="section">
+            <h2>¿Qué son las 7R?</h2>
+            <p>Las 7R ecológicas son acciones que ayudan a cuidar el planeta. Promueven una vida más consciente, disminuyendo la contaminación y el desperdicio. Estas son: Rediseñar, Reducir, Reutilizar, Reparar, Renovar, Recuperar y Reciclar.</p>
+            <img src="https://hydronik.es/wp-content/uploads/2021/04/Economia-circular.png" alt="Infografía de las 7R">
+            <img src="https://th.bing.com/th/id/OIP.dN-ER7FeM7VqaEAifcB5LQHaDi?cb=iwc2&rs=1&pid=ImgDetMain" alt="Infografías de las 7R">
+        </div>
+
+        <div class="section">
+            <h2>Las 7R ecológicas</h2>
+
+            <div class="r-item">
+                <h3>Rediseñar</h3>
+                <p>Crear productos pensando en su impacto ambiental, buscando que sean duraderos, reutilizables o reciclables desde su diseño.</p>
+                <img src="https://www.inti.tv/wp-content/uploads/2018/05/reutilizar.jpg" alt="Ejemplo de rediseño ecológico">
+            </div>
+
+            <div class="r-item">
+                <h3>Reducir</h3>
+                <p>Disminuir el consumo y los residuos. Comprar solo lo necesario y optar por productos con menos empaque.</p>
+                <img src="https://th.bing.com/th/id/R.e323e19095a66f8c54c495f901875c35?rik=zbgyiv18iYgHnA&pid=ImgRaw&r=0" alt="Reducir el consumo de plástico">
+            </div>
+
+            <div class="r-item">
+                <h3>Reutilizar</h3>
+                <p>Dar más de un uso a los objetos antes de desecharlos, como bolsas, frascos o ropa.</p>
+                <img src="https://th.bing.com/th/id/OIP.86hQe_w-t_I5hbGhjBtF_AHaHa?cb=iwc2&rs=1&pid=ImgDetMain" alt="Ejemplos de reutilización creativa">
+            </div>
+
+            <div class="r-item">
+                <h3>Reparar</h3>
+                <p>Arreglar cosas que se rompen en lugar de reemplazarlas, extendiendo su vida útil.</p>
+                <img src="https://cdn0.ecologiaverde.com/es/posts/6/6/0/redisenar_2066_0_600.jpg" alt="Reparación de electrodomésticos">
+            </div>
+
+            <div class="r-item">
+                <h3>Renovar</h3>
+                <p>Actualizar y mejorar objetos antiguos para que puedan seguir siendo útiles o atractivos.</p>
+                <img src="https://img.freepik.com/fotos-premium/bolsa-reciclaje-algodon-colgada-estante-abrigos-madera-cero-productos-desperdicio-medio-ambiente-ecologia-cuidado-renovar_926199-3848204.jpg" alt="Renovación de muebles">
+            </div>
+
+            <div class="r-item">
+                <h3>Recuperar</h3>
+                <p>Recuperar materiales, piezas o energía antes de que sean desechados completamente.</p>
+                <img src="https://vidaprepper.com/wp-content/uploads/imagen-forestal-ecologica-reciclaje-740.webp" alt="Recuperación de materiales">
+            </div>
+
+            <div class="r-item">
+                <h3>Reciclar</h3>
+                <p>Transformar los residuos en nuevos productos útiles, reduciendo el impacto ambiental.</p>
+                <img src="https://th.bing.com/th/id/OIP.Vp3TyY5bTTgIn9-WWq7SvgHaE6?cb=iwc2&rs=1&pid=ImgDetMain" alt="Proceso de reciclaje">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Importancia de las 7R</h2>
+            <p>Las 7R fomentan un cambio en la forma en que consumimos. Al aplicarlas, reducimos la cantidad de basura, cuidamos los recursos naturales y minimizamos la contaminación del agua, aire y suelo.</p>
+            <p>Además, promueven la economía circular y la responsabilidad individual y colectiva hacia el medio ambiente.</p>
+            <img src="https://img.interempresas.net/fotos/2253194.jpeg" alt="Conciencia ambiental y sostenibilidad">
+        </div>
+
+        <div class="section">
+            <h2>Impacto Ambiental Positivo</h2>
+            <p>Aplicar las 7R significa menos desechos, más reutilización, menos contaminación, y una mayor protección de los ecosistemas. También mejora nuestra calidad de vida.</p>
+            <p>Las personas, empresas y gobiernos pueden trabajar juntos para proteger la Tierra, reduciendo su huella ecológica día a día.</p>
+            <img src="https://eligeeducar.cl/content/uploads/2021/04/medioambiente-recibiendo-ayuda.jpg" alt="Ejemplo de medio ambiente limpio">
+        </div>
+
+        <div class="section">
+            <h2>Video sobre las 7R</h2>
+            <iframe src="https://www.youtube.com/embed/UIkFrJ9Ujag" allowfullscreen></iframe>
+            <p>Este video explica de forma visual cómo aplicar las 7R en la vida cotidiana.</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>R</th>
+                    <th>Significado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Rediseñar</td><td>Diseñar productos ecológicos desde el inicio.</td></tr>
+                <tr><td>Reducir</td><td>Disminuir el consumo innecesario.</td></tr>
+                <tr><td>Reutilizar</td><td>Dar un nuevo uso a lo que ya tenemos.</td></tr>
+                <tr><td>Reparar</td><td>Arreglar para extender la vida útil.</td></tr>
+                <tr><td>Renovar</td><td>Actualizar para no desechar.</td></tr>
+                <tr><td>Recuperar</td><td>Recoger materiales antes de desechar.</td></tr>
+                <tr><td>Reciclar</td><td>Transformar residuos en nuevos productos.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="agradecimiento">
+            ¡Gracias por ver mi página!
+        </div>
+
+        <script>
+            const musica = document.getElementById('musica-fondo');
+            let reproduciendo = false;
+
+            function toggleMusic() {
+                if (reproduciendo) {
+                    musica.pause();
+                } else {
+                    musica.volume = 0.5;
+                    musica.play().catch(error => console.log('Error al reproducir:', error));
+                }
+                reproduciendo = !reproduciendo;
+            }
+        </script>
+    </div>
+</body>
+</html>

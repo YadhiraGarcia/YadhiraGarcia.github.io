@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel del Administrador</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #4a148c; color: white; padding: 20px; text-align: center; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .section-title { margin-top: 40px; color: #4a148c; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+    .legend span { display: inline-block; margin-right: 10px; padding: 5px 10px; border-radius: 5px; font-size: 14px; color: white; margin-bottom: 10px; }
+    .en-uso { background-color: #3498db; }
+    .disponible { background-color: #2ecc71; }
+    .mantenimiento { background-color: #e74c3c; }
+    .congelada { background-color: #f1c40f; color: black; }
+    .apagada { background-color: #7f8c8d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; margin-top: 20px; }
+    .equipo { padding: 20px; border-radius: 10px; text-align: center; font-weight: bold; cursor: pointer; color: white; transition: transform 0.2s; }
+    .equipo:hover { transform: scale(1.05); opacity: 0.9; }
+    .panel { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.2); transition: right 0.3s ease; padding: 20px; z-index: 999; overflow-y: auto; }
+    .panel.open { right: 0; }
+    .close-btn { background-color: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+    .info-item { margin-bottom: 10px; font-size: 14px; }
+    .info-text { background: #fff; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; }
+    .info-text:hover { background: #f0f0f0; }
+    .preview-img { width: 100%; max-height: 200px; object-fit: contain; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panel de Control - Sistema de Equipos</h1>
+  </header>
+
+  <div class="container">
+    <h2 class="section-title">Leyenda de Estados</h2>
+    <div class="legend">
+      <span class="en-uso">En uso</span>
+      <span class="disponible">Disponible</span>
+      <span class="mantenimiento">Mantenimiento</span>
+      <span class="congelada">Congelada</span>
+      <span class="apagada">Apagada</span>
+    </div>
+
+    <h2 class="section-title">Equipos del Laboratorio A</h2>
+    <div class="grid">
+      <div class="equipo en-uso" onclick="mostrarDetalles('PC-01', 'En uso', 'Luis M.', '2 hrs', 'Lab A')">PC-01</div>
+      <div class="equipo disponible" onclick="mostrarDetalles('PC-02', 'Disponible', '—', '0 hrs', 'Lab A')">PC-02</div>
+      <div class="equipo mantenimiento" onclick="mostrarDetalles('PC-03', 'Mantenimiento', '—', '—', 'Lab A')">PC-03</div>
+      <div class="equipo congelada" onclick="mostrarDetalles('PC-04', 'Congelada', 'Ana R.', '3 hrs', 'Lab A')">PC-04</div>
+      <div class="equipo apagada" onclick="mostrarDetalles('PC-05', 'Apagada', '—', '—', 'Lab A')">PC-05</div>
+    </div>
+
+    <h2 class="section-title">Acciones del Administrador</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+      <div class="info-text" onclick="abrirPanelAccion('Registrar hardware/software', `
+        <p><strong>Simulación de software instalados:</strong></p>
+        <ul><li>Office 2021</li><li>Visual Studio Code</li><li>Photoshop CC</li></ul>
+        <p><strong>🔍 Lupa para buscar o agregar nuevo software</strong></p>`)">
+        <strong>📦 Registrar hardware/software</strong>
+        <p>Escaneo automático del equipo cada semestre.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Crear cuentas de usuario', `
+        <p>Formulario de creación:</p>
+        <label>Usuario: <input type=&quot;text&quot; placeholder=&quot;Nombre de usuario&quot;></label><br><br>
+        <label>Contraseña: <input type=&quot;password&quot; placeholder=&quot;Contraseña&quot;></label><br><br>
+        <label>Foto de perfil: <input type=&quot;file&quot; accept=&quot;image/*&quot; onchange=&quot;mostrarPreview(event)&quot;></label>
+        <img id=&quot;preview&quot; class=&quot;preview-img&quot; alt=&quot;Previsualización de foto&quot;><br>
+        <button onclick=&quot;alert('Cuenta creada (simulación).')&quot;>Crear Cuenta</button>` )">
+        <strong>👥 Crear cuentas de usuario</strong>
+        <p>Registro individual o masivo con número de control.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Visualizar inventario', `
+        <p><strong>Salón A:</strong> 10 máquinas (5 apagadas, 2 en uso, 3 en mantenimiento).</p>
+        <p><strong>Salón B:</strong> 8 máquinas (4 disponibles, 2 en uso, 2 en mantenimiento).</p>`)">
+        <strong>📊 Visualizar inventario</strong>
+        <p>Ver equipos por laboratorio en tiempo real.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Historial de uso y alertas', `
+        <ul>
+          <li>PC-01: Requiere actualización de antivirus.</li>
+          <li>PC-03: No prende por acumulación de polvo.</li>
+          <li>PC-05: Error en disco duro detectado.</li>
+        </ul>`)">
+        <strong>🖥 Historial de uso y alertas</strong>
+        <p>Reportes por máquina y alertas automáticas.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Parámetros del servidor', `
+        <p>Simulación de parámetros:</p>
+        <ul>
+          <li>IP del servidor: 192.168.1.10</li>
+          <li>Latencia media: 23ms</li>
+          <li>Conexiones activas: 12</li>
+        </ul>
+        <div style='width:100%;height:150px;background:#ddd;text-align:center;line-height:150px;'>📈 Gráfica de latencia</div>`)">
+        <strong>🔒 Parámetros del servidor</strong>
+        <p>Configuración solo por el administrador.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Estadísticas de satisfacción', `
+        <p>Encuestas del mes:</p>
+        <ul>
+          <li>Excelente: 65%</li>
+          <li>Buena: 20%</li>
+          <li>Regular: 10%</li>
+          <li>Mala: 5%</li>
+        </ul>`)">
+        <strong>😃 Estadísticas de satisfacción</strong>
+        <p>Datos recolectados al cerrar sesión.</p>
+      </div>
+
+      <div class="info-text" onclick="abrirPanelAccion('Reportes por usuario', `
+        <p><strong>Usuario Juan P.:</strong> Última sesión hace 2 días.</p>
+        <p><strong>Usuario María L.:</strong> Sesión activa ahora.</p>
+        <p><strong>Filtros:</strong> Por fecha, equipo o laboratorio.</p>`)">
+        <strong>📄 Reportes por usuario</strong>
+        <p>Control de uso con filtros por fecha o equipo.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Satisfacción del Usuario</h2>
+    <div class="info-text">
+      <p>Resultados del mes:</p>
+      <div style="margin-top: 10px;">
+        <div><strong>😊 Excelente:</strong> <div style="background:#2ecc71;height:10px;width:80%;"></div></div>
+        <div><strong>😐 Regular:</strong> <div style="background:#f1c40f;height:10px;width:50%;margin-top:4px;"></div></div>
+        <div><strong>😠 Malo:</strong> <div style="background:#e74c3c;height:10px;width:20%;margin-top:4px;"></div></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Exportar Reportes</h2>
+    <div class="info-text" style="text-align: center;">
+      <p>Exporta reportes por equipo, usuario o laboratorio.</p>
+      <button class="close-btn" style="background-color: #3498db;">📥 Exportar a PDF</button>
+    </div>
+  </div>
+
+  <div id="panel" class="panel">
+    <h2 id="panel-title">Detalles</h2>
+    <div id="panel-content"></div>
+    <button class="close-btn" onclick="cerrarPanel()">Cerrar</button>
+  </div>
+
+  <script>
+    function mostrarDetalles(nombre, estado, usuario, tiempo, laboratorio) {
+      document.getElementById("panel-title").innerText = nombre;
+      document.getElementById("panel-content").innerHTML = `
+        <div class='info-item'><strong>Estado:</strong> ${estado}</div>
+        <div class='info-item'><strong>Último usuario:</strong> ${usuario}</div>
+        <div class='info-item'><strong>Tiempo de uso:</strong> ${tiempo}</div>
+        <div class='info-item'><strong>Laboratorio:</strong> ${laboratorio}</div>`;
+      document.getElementById("panel").classList.add("open");
+    }
+    function abrirPanelAccion(titulo, contenidoHTML) {
+      document.getElementById("panel-title").innerText = titulo;
+      document.getElementById("panel-content").innerHTML = contenidoHTML;
+      document.getElementById("panel").classList.add("open");
+    }
+    function cerrarPanel() {
+      document.getElementById("panel").classList.remove("open");
+    }
+    function mostrarPreview(event) {
+      const preview = document.getElementById("preview");
+      const file = event.target.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
